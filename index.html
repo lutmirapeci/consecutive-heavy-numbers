@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const getDivisors = (n) => {
+        const divisors = [];
+        for (let i = 2; i <= n; i++) {
+          if (n % i === 0) divisors.push(i);
+        }
+        return divisors;
+      };
+
+      const gcd = (a, b) => {
+        while (b !== 0) {
+          [a, b] = [b, a % b];
+        }
+        return a;
+      };
+
+      const isHeavyNumber = (n) => {
+        const divisors = getDivisors(n);
+        const sumOfDivisors = divisors.reduce((acc, val) => acc + val, 0);
+        return gcd(n, sumOfDivisors) === 1;
+      };
+
+      const findConsecutiveHeavyNumbers = (count) => {
+        let consecutiveNumbers = [];
+        let current = 1;
+
+        while (consecutiveNumbers.length < count) {
+          if (isHeavyNumber(current)) {
+            consecutiveNumbers.push(current);
+          } else {
+            consecutiveNumbers = [];
+          }
+          current++;
+        }
+
+        return consecutiveNumbers;
+      };
+
+      console.log(findConsecutiveHeavyNumbers(5));
+    </script>
+  </body>
+</html>
